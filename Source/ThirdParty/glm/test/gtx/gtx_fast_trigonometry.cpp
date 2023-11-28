@@ -35,8 +35,6 @@ namespace fastCos
 		std::printf("fastCos Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("cos Time %d clocks\n", static_cast<int>(time_default));
 
-		(void) result; // Silence set but not used warning
-
 		return time_fast <= time_default ? 0 : 1;
 	}
 }//namespace fastCos
@@ -71,8 +69,6 @@ namespace fastSin
 		std::printf("fastSin Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("sin Time %d clocks\n", static_cast<int>(time_default));
 
-		(void) result; // Silence set but not used warning
-
 		return time_fast <= time_default ? 0 : 1;
 	}
 }//namespace fastSin
@@ -98,8 +94,6 @@ namespace fastTan
 		const std::clock_t time_default = timestamp3 - timestamp2;
 		std::printf("fastTan Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("tan Time %d clocks\n", static_cast<int>(time_default));
-
-		(void) result; // Silence set but not used warning
 
 		return time_fast <= time_default ? 0 : 1;
 	}
@@ -128,8 +122,6 @@ namespace fastAcos
 		std::printf("fastAcos Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("acos Time %d clocks\n", static_cast<int>(time_default));
 
-		(void) result; // Silence set but not used warning
-
 		return time_fast <= time_default ? 0 : 1;
 	}
 }//namespace fastAcos
@@ -153,8 +145,6 @@ namespace fastAsin
 		std::printf("fastAsin Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("asin Time %d clocks\n", static_cast<int>(time_default));
 
-		(void) result; // Silence set but not used warning
-
 		return time_fast <= time_default ? 0 : 1;
 	}
 }//namespace fastAsin
@@ -177,8 +167,6 @@ namespace fastAtan
 		const std::clock_t time_default = timestamp3 - timestamp2;
 		std::printf("fastAtan Time %d clocks\n", static_cast<int>(time_fast));
 		std::printf("atan Time %d clocks\n", static_cast<int>(time_default));
-
-		(void) result; // Silence set but not used warning
 
 		return time_fast <= time_default ? 0 : 1;
 	}

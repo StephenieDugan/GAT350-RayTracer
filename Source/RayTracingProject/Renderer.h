@@ -1,6 +1,7 @@
 #pragma once
 
-#include <string>
+#include <SDL.h>
+#include <iostream>
 class Renderer
 {
 public:
@@ -11,6 +12,7 @@ public:
 	bool CreateWindow(const std::string& title, int width, int height);
 
 private:
-	//SDL_Window* = nullptr;
+	SDL_Window* m_window = nullptr;
+	SDL_Renderer* m_renderer = nullptr;
 };
 
