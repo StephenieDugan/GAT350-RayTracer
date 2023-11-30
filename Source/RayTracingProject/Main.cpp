@@ -4,6 +4,8 @@
 #include "Canvas.h"
 #include "Scene.h"
 #include "Material.h"
+#include "Sphere.h"
+#include <memory>
 
 using namespace std;
 
@@ -21,7 +23,15 @@ int main(int argc, char* argv[])
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 0, 1 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 70.0f, aspectRatio);
 	Scene scene({ 0.5, 0.5, 0.0 }, { 0.1, 0.3, 0.0 }); 
 	scene.SetCamera(camera);
+
+
 	auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+
+
+	// create objects -> add to scene
+	auto sphere = std::make_unique<Sphere>(glm::vec3{ random(1,100),random(1,100), random(1,100)}, random(1, 20), material);
+	scene.AddObject(std::move(sphere));
+
 
 	bool quit = false;
 	while (!quit)

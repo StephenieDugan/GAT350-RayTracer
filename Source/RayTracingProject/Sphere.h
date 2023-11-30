@@ -1,13 +1,14 @@
 #pragma once
 #include "Object.h"
 #include <glm/glm.hpp>
+
 class Sphere : public Object
 {
 public:
 	Sphere() = default;
 	Sphere(const glm::vec3& center, float radius, std::shared_ptr<Material> material)
 	{
-		Object(*material);
+		m_material = material;
 		m_center = center;
 		m_radius = radius;
 	}
