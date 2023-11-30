@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "Random.h"
 #include "Canvas.h"
+#include "Scene.h"
 
 using namespace std;
 
@@ -15,15 +16,17 @@ int main(int argc, char* argv[])
 	renderer.Init();
 	renderer.CreateWindow("window", 400, 300);
 	Canvas canvas(400, 300, renderer);
+	float aspectRatio = canvas.GetSize().x / static_cast<float>(canvas.GetSize().y);
+	std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 0, 1 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 70.0f, aspectRatio);
+	Scene scene({ 0.5, 0.7, 1.0 }, { 1.0, 1.0, 1.0 }); 
+	scene.SetCamera(camera);
+
 
 	bool quit = false;
 	while (!quit)
 	{
 		canvas.Clear({ 0, 0, 0, 1 });
-		for (int i = 0; i < 100000; i++) 
-		{
-			canvas.DrawPoint({ random(0,400),random(0,300)}, {random(0,255),random(0,255),random(0,255), 1});
-		}
+		scene.Render(canvas);
 		canvas.Update();
 
 		renderer.PresentCanvas(canvas);

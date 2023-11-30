@@ -3,6 +3,9 @@
 #include "Canvas.h"
 #include "Camera.h"
 #include "Ray.h"
+#include <glm\glm.hpp>
+#include <memory>
+
 class Scene
 {
 public:
@@ -15,12 +18,11 @@ public:
 	void Render(class Canvas& canvas);
 	color3_t Trace(const ray_t& ray);
 
-	void SetCamera(Camera* camera) { m_camera = camera; }
+	void SetCamera(std::shared_ptr<Camera> camera) { m_camera = camera; }
 
 private:
-	Camera* m_camera;
+	std::shared_ptr<Camera> m_camera;
 
 	color3_t m_topColor{ 0,0,0 };
 	color3_t m_bottomColor{ 1,1,1 };
 };
-

@@ -1,4 +1,10 @@
 #include "Camera.h"
+Camera::Camera(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up, float fov, float aspectRatio) :
+	m_fov{ fov },
+	m_aspectRatio{ aspectRatio }
+{
+	LookAt(eye, target, up);
+}
 void Camera::LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::vec3& up)
 {
 	m_eye = eye;
