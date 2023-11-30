@@ -3,6 +3,7 @@
 #include "Random.h"
 #include "Canvas.h"
 #include "Scene.h"
+#include "Material.h"
 
 using namespace std;
 
@@ -18,9 +19,9 @@ int main(int argc, char* argv[])
 	Canvas canvas(400, 300, renderer);
 	float aspectRatio = canvas.GetSize().x / static_cast<float>(canvas.GetSize().y);
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 0, 1 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 70.0f, aspectRatio);
-	Scene scene({ 0.5, 0.7, 1.0 }, { 1.0, 1.0, 1.0 }); 
+	Scene scene({ 0.5, 0.5, 0.0 }, { 0.1, 0.3, 0.0 }); 
 	scene.SetCamera(camera);
-
+	auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
 
 	bool quit = false;
 	while (!quit)
