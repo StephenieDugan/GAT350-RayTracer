@@ -21,9 +21,9 @@ struct raycastHit_t
     float distance = 0;
 
     // world point of raycast hit
-    glm::vec3 point{ 0 };
+    glm::vec3 point{ 0,0,0 };
     // surface normal of raycast hit
-    glm::vec3 normal{ 0 };
+    glm::vec3 normal{ 0,0,0 };
 
     // material attached to hit object
     class Material* material{ nullptr };

@@ -23,7 +23,7 @@ void Scene::Render(Canvas& canvas)
             // cast ray into scene
             // set color value from trace
             raycastHit_t raycastHit;
-            color3_t color = Trace(ray, 0, 100, raycastHit);
+            color3_t color = Trace(ray, 0, 100, raycastHit,m_depth);
 
             // draw color to canvas point (pixel)
             canvas.DrawPoint(pixel, color4_t(color, 1));
@@ -31,7 +31,7 @@ void Scene::Render(Canvas& canvas)
     }
 }
 
-color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit)
+color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit, int depth)
 {
 	bool rayHit = false;
 	float closestDistance = maxDistance;
@@ -53,17 +53,19 @@ color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, ra
 	{
 		ray_t scattered;
 		color3_t color;
-
+		ray_t newRay{ raycastHit.point, raycastHit.normal };
 		if (raycastHit.material->Scatter(ray, raycastHit, color, scattered))
 		{
-			return color;
+			return raycastHit.normal + Trace(scattered, minDistance, maxDistance, raycastHit, depth-1);
 		}
 		else
 		{
-			return color3_t{ 0, 0, 0 };
+			return color3_t{ 0 };
 		}
+		
+		
 	}
-
+   
 	// if ray not hit, return scene sky color
     glm::vec3 direction = glm::normalize(ray.m_direction);
 

@@ -21,16 +21,30 @@ int main(int argc, char* argv[])
 	Canvas canvas(400, 300, renderer);
 	float aspectRatio = canvas.GetSize().x / static_cast<float>(canvas.GetSize().y);
 	std::shared_ptr<Camera> camera = std::make_shared<Camera>(glm::vec3{ 0, 0, 1 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 }, 70.0f, aspectRatio);
-	Scene scene({ 0.5, 0.5, 0.0 }, { 0.1, 0.3, 0.0 }); 
+	Scene scene(20); 
 	scene.SetCamera(camera);
 
 
-	auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+	auto material = std::make_shared<Lambertian>(color3_t{ 0, 0, 0 });
 
 
 	// create objects -> add to scene
-	auto sphere = std::make_unique<Sphere>(glm::vec3{ random(1,100),random(1,100), random(1,100)}, random(1, 20), material);
-	scene.AddObject(std::move(sphere));
+	for (int i = 0; i < 100; i++)
+	{
+		auto sphere = std::make_unique<Sphere>(glm::vec3{ random(-10,10),random(-10,10), random(-4,-6)}, random(0.1, 1), material);
+		scene.AddObject(std::move(sphere));
+	}
+	// create material
+	auto lambertian = std::make_shared<Lambertian>(color3_t{ 0, 0, 1 });
+	auto metal = std::make_shared<Metal>(color3_t{ 1, 1, 1 }, 0.0f);
+
+	// create objects -> add to scene
+	for (int i = 0; i < 10; i++)
+	{
+		std::shared_ptr<Material> material = (rand() % 2 == 0) ? std::dynamic_pointer_cast<Material>(lambertian) : std::dynamic_pointer_cast<Material>(metal);
+		auto sphere = std::make_unique<Sphere>(glm::vec3{ random(-10,10),random(-10,10), random(-4,-6) }, random(0.1, 1), material);
+		scene.AddObject(std::move(sphere));
+	}
 
 
 	bool quit = false;

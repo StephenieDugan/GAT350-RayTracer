@@ -1,3 +1,4 @@
+#pragma once
 #include <type_traits>
 #include <stdlib.h>
 #include <glm/glm.hpp>
