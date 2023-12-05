@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/gtx/color_space.hpp>
 #include <cstdint>
 
 using color3_t = glm::vec3;

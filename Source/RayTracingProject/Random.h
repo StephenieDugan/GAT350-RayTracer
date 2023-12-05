@@ -1,6 +1,7 @@
 #pragma once
 #include <type_traits>
 #include <stdlib.h>
+#include <algorithm>
 #include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
 
@@ -33,8 +34,8 @@ inline glm::vec3 randomInUnitSphere()
 	// generate random vectors between -1 <-> +1, return vector if length is less than 1
 	do
 	{
-		v = glm::vec3{ random(-1.0f,1.0f),random(-1.0f,1.0f),random(-1.0f,1.0f) };
+		v = glm::vec3{ random(-1,1),random(-1,1),random(-1,1) };
 	} while (glm::length2(v) >= 1.0f);
 
-		return v;
+	return v;
 }
