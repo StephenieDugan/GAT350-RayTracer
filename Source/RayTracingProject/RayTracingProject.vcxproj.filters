@@ -38,6 +38,9 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -71,5 +74,6 @@
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
 </Project>
