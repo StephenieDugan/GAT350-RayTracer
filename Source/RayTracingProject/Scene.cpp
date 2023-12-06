@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <iomanip>
+#include "Random.h"
 
 void Scene::Render(Canvas& canvas, int numSamples, int depth)
 {
@@ -52,14 +53,11 @@ color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, ra
 	bool rayHit = false;
 	float closestDistance = maxDistance;
 
-	// check if scene objects are hit by the ray
-	for (auto& object : m_objects)
+	for (const auto& object : m_objects)
 	{
-		// when checking objects don't include objects farther than closest hit (starts at max distance)
 		if (object->Hit(ray, minDistance, closestDistance, raycastHit))
 		{
 			rayHit = true;
-			// set closest distance to the raycast hit distance (only hit objects closer than closest distance)
 			closestDistance = raycastHit.distance;
 		}
 	}
@@ -74,15 +72,14 @@ color3_t Scene::Trace(const ray_t& ray, float minDistance, float maxDistance, ra
 		if (depth > 0 && raycastHit.material->Scatter(ray, raycastHit, color, scattered))
 		{
 			// recursive function, call self and modulate (multiply) colors of depth bounces
-			return color * Trace(scattered, minDistance, maxDistance, raycastHit, depth);
+			return color * Trace(scattered, minDistance, maxDistance, raycastHit, depth - 1);
 		}
 		else
 		{
-			// reached maximum depth of bounces (get emissive color, will be black except for Emissive materials)
-			return raycastHit.material->GetEmissive();
+			// reached the maximum depth of bounces (color is black)
+			return color3_t{ 0, 0, 0 };
 		}
 	}
-
 
 	// if ray not hit, return scene sky color
 	glm::vec3 direction = glm::normalize(ray.m_direction);
