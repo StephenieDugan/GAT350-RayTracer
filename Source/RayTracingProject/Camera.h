@@ -30,4 +30,3 @@ private:
 	float m_fov{ 0 }; // field of view (angle is in degrees)
 	float m_aspectRatio{ 0 }; // screen width / screen height (800 / 600 = 1.333)
 };
-

@@ -33,6 +33,10 @@ inline bool approximately(float value1, float value2)
     // check if the difference between the values is less than epsilon
     return ((float)std::abs(value1 - value2) < FLT_EPSILON);
 }
+inline float angle(const glm::vec3& v1, const glm::vec3& v2)
+{
+    return glm::acos(dot(v1, v2));
+}
 
 inline bool refract(const glm::vec3& v, const glm::vec3& n, float index, glm::vec3& refracted)
 {

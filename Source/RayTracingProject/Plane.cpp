@@ -1,7 +1,7 @@
 #include "Plane.h"
 #include "MathUtils.h"
 
-bool Plane::Hit(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit)
+bool Plane::Hit(const ray_t& ray, float minDistance, float maxDistance,struct raycastHit_t& raycastHit)
 {
         // check dot product of ray direction and plane normal, if result is 0 then ray direction if parallel to plane
         // the dot product is 0 if the two vectors are perpendicular (90 degrees)

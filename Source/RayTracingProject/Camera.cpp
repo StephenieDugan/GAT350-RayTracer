@@ -11,10 +11,10 @@ void Camera::LookAt(const glm::vec3& eye, const glm::vec3& target, const glm::ve
 	// set the camera axis vectors (forward, right, up)
 	// forward vector (eye <- target)
 	m_forward = glm::normalize(eye - target);
-		// use cross product to create vectors
-		// right = up x forward 
+	// use cross product to create vectors
+	// right = up x forward 
 	m_right = glm::normalize(cross(up, m_forward));
-		// up = forward x right
+	// up = forward x right
 	m_up = cross(m_forward, m_right);
 
 	CalculateViewPlane();
@@ -32,10 +32,10 @@ void Camera::CalculateViewPlane()
 
 	// calculate horizontal vector (right vector * width)
 	m_horizontal = m_right * width;
-		// calculate vertical vector (up vector * height)
+	// calculate vertical vector (up vector * height)
 	m_vertical = m_up * height;
-		// calculate lower left location (origin)
-		m_lowerLeft = m_eye - (m_horizontal * 0.5f) - (m_vertical * 0.5f) - m_forward;
+	// calculate lower left location (origin)
+	m_lowerLeft = m_eye - (m_horizontal * 0.5f) - (m_vertical * 0.5f) - m_forward;
 }
 
 ray_t Camera::GetRay(const glm::vec2& point) const
@@ -46,5 +46,5 @@ ray_t Camera::GetRay(const glm::vec2& point) const
 	//calculate direction from point
 	ray.m_direction = (m_lowerLeft + (m_horizontal * point.x) + (m_vertical * point.y)) - m_eye;
 
-		return ray;
+	return ray;
 }

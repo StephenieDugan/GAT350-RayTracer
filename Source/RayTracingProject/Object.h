@@ -1,6 +1,7 @@
 #pragma once
 #include "Material.h"
-#include <memory>
+#include <iostream>
+
 class Object
 {
 public:
@@ -9,7 +10,7 @@ public:
 		m_material{ material } {}
 
 	virtual bool Hit(const ray_t& ray, float minDistance, float maxDistance, raycastHit_t& raycastHit) = 0;
-	
+
 	Material* GetMaterial() { return m_material.get(); }
 
 protected:
