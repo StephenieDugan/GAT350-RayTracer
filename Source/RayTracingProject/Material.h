@@ -20,15 +20,15 @@ protected:
 	color3_t m_albedo;
 };
 
-class Metal : public Material
-{
+class Metal : public Material {
 public:
-	Metal(const glm::vec3& albedo, float fuzz) : m_albedo{ albedo }, m_fuzz{ fuzz } {}
-	virtual bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3& color, ray_t& scattered) const override;
+	Metal(const color3_t& albedo, float fuzziness) : m_albedo(albedo), m_fuzziness(fuzziness) {}
 
-protected:
-	glm::vec3 m_albedo{ 0 };
-	float m_fuzz = 0;
+	virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const override;
+
+private:
+	color3_t m_albedo;
+	float m_fuzziness;
 };
 
 class Dielectric : public Material

@@ -19,7 +19,7 @@ bool Plane::Hit(const ray_t& ray, float minDistance, float maxDistance,struct ra
         }
 
         // check if t is outside min and max distance
-        if (t>minDistance && t<maxDistance)
+        if (t<=minDistance && t>=maxDistance)
         {
             return false;
         }
