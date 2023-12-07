@@ -1,6 +1,6 @@
-#pragma once
 #include "Object.h"
-#include <vector>
+#include "vector"
+
 struct aiNode;
 struct aiMesh;
 struct aiScene;

@@ -1,53 +1,56 @@
 #pragma once
-
 #include "Ray.h"
 #include "Color.h"
+#include "random.h"
 
-class Material {
+class Material
+{
 public:
-    virtual ~Material() = default;
-
-    virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const = 0;
+	virtual bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color3_t& color, ray_t& scattered) const = 0;
+	virtual color3_t GetEmissive() const { return { 0, 0, 0 }; }
 };
 
-class Lambertian : public Material {
+class Lambertian : public Material
+{
 public:
-    Lambertian(const color3_t& albedo) : m_albedo(albedo) {}
+	Lambertian(const color3_t& albedo) : m_albedo{ albedo } {}
+	bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color3_t& color, ray_t& scattered) const override;
 
-    virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const override;
-
-private:
-    color3_t m_albedo;
+protected:
+	color3_t m_albedo;
 };
 
-class Metal : public Material {
+class Metal : public Material
+{
 public:
-    Metal(const color3_t& albedo, float fuzziness) : m_albedo(albedo), m_fuzziness(fuzziness) {}
+	Metal(const glm::vec3& albedo, float fuzz) : m_albedo{ albedo }, m_fuzz{ fuzz } {}
+	virtual bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3& color, ray_t& scattered) const override;
 
-    virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const override;
-
-private:
-    color3_t m_albedo;
-    float m_fuzziness;
+protected:
+	glm::vec3 m_albedo{ 0 };
+	float m_fuzz = 0;
 };
 
-class Dielectric : public Material {
+class Dielectric : public Material
+{
 public:
-    Dielectric(const color3_t& albedo, float refractionIndex) : m_albedo(albedo), m_refractionIndex(refractionIndex) {}
+	Dielectric(const glm::vec3& albedo, float index) : m_albedo{ albedo }, m_index{ index } {}
+	virtual bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, glm::vec3& color, ray_t& scattered) const override;
 
-    virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const override;
-
-private:
-    color3_t m_albedo;
-    float m_refractionIndex;
+protected:
+	glm::vec3 m_albedo{ 1 };
+	float m_index{ 1 }; // refraction index
 };
 
-class Emissive : public Material {
+class Emissive : public Material
+{
 public:
-    Emissive(const color3_t& emissiveColor, float intensity) : m_emissiveColor(emissiveColor), m_intensity(intensity) {}
+	Emissive(const color3_t& albedo, float intensity = 1) : m_albedo{ albedo }, m_intensity{ intensity } {}
 
-    virtual bool Scatter(const ray_t& ray, const raycastHit_t& hit, color3_t& attenuation, ray_t& scattered) const override;
+	bool Scatter(const ray_t& ray, const raycastHit_t& raycastHit, color3_t& color, ray_t& scattered) const override { return false; }
+	color3_t GetEmissive() const override { return m_albedo * m_intensity; }
+
 private:
-    color3_t m_emissiveColor;
-    float m_intensity;
+	glm::vec3 m_albedo{ 1, 1, 1 };
+	float m_intensity{ 1 };
 };

@@ -8,7 +8,7 @@
 class Scene
 {
 public:
-	Scene();
+	Scene() = default;
 	Scene(const color3_t& topColor, const color3_t& bottomColor) :
 		m_topColor{ topColor },
 		m_bottomColor{ bottomColor }
@@ -22,6 +22,7 @@ public:
 
 private:
 	std::shared_ptr<Camera> m_camera;
+	int m_depth{ 5 };
 	color3_t m_topColor{ 0, 0, 0 };
 	color3_t m_bottomColor{ 1, 1, 1 };
 	std::vector<std::unique_ptr<Object>> m_objects;

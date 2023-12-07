@@ -1,6 +1,5 @@
-#pragma once
-// https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
 #include "Object.h"
+
 class Triangle : public Object
 {
 public:
@@ -19,4 +18,3 @@ private:
 	glm::vec3 m_v2{ 0, 0, 0 };
 	glm::vec3 m_v3{ 0, 0, 0 };
 };
-
